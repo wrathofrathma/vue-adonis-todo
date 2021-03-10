@@ -14,7 +14,8 @@ class TaskController {
         const { description } = request.all();
         const task = new Task();
         task.fill({
-            description
+            description,
+            completed: false
         });
         await project.tasks().save(task);
         return task;
@@ -33,7 +34,9 @@ class TaskController {
         //ID here refers to ask ID, in index & create it refers to
         const { id } = params;
         const task = await Task.find(id);
-        const project = await Project.find(task.project_id);
+        // I initially did it this way, which is fine, but tutorialman did it the other way.
+        // const project = await Project.find(task.project_id);
+        const project = await task.project().fetch();
         AuthService.verifyPermission(project, user);
 
         await task.delete();
@@ -44,10 +47,15 @@ class TaskController {
         const user = await auth.getUser();
         const { id } = params;
         const task = await Task.find(id);
-        const project = await Project.find(task.project_id);
+        // I initially did it this way, which is fine, but tutorialman did it the other way.
+        // const project = await Project.find(task.project_id);
+        const project = await task.project().fetch();
         AuthService.verifyPermission(project, user);
 
-        task.merge(request.only('description'));
+        task.merge(request.only([
+            'description',
+            'completed'
+        ]));
         await task.save();
         return task;
     }
