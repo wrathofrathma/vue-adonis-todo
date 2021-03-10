@@ -5,14 +5,29 @@
   </div>
   <router-view/>
 </template>
+<script>
+//CSS/Theme stuff for primevue. 
+import "primevue/resources/themes/vela-blue/theme.css"
+import "primevue/resources/primevue.min.css"
+import "primeicons/primeicons.css"
+import "primeflex/primeflex.css"
+
+export default {
+  
+}
+</script>
 
 <style>
+body {
+  background-color: var(--surface-b);
+  color: var(--text-color);
+}
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
 }
 
 #nav {
@@ -21,7 +36,6 @@
 
 #nav a {
   font-weight: bold;
-  color: #2c3e50;
 }
 
 #nav a.router-link-exact-active {
