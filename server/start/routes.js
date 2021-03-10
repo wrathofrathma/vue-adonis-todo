@@ -19,3 +19,12 @@ const Route = use('Route')
 Route.get('/', () => {
   return { greeting: 'Hello world in JSON' }
 })
+
+// Groups routes together by a prefix
+Route.group(() => {
+  //Sends the requests to our controller method created using adonis make:controller User
+  // then defining the register method
+  Route.post('auth/register', "UserController.register")
+  Route.post('auth/login', "UserController.login")
+
+}).prefix("api")
