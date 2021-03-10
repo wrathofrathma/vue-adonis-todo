@@ -1,6 +1,7 @@
 'use strict'
 
 const Project = use("App/Models/Project")
+const AuthService = use("App/Services/AuthorizationService")
 
 class ProjectController {
     async index({auth}) {
@@ -36,6 +37,21 @@ class ProjectController {
         });
         //Then saving it to associate it with the user
         await user.projects().save(project);
+        return project;
+    }
+
+    //Adding params to the input object gives us the query parameters from the route.
+    async destroy({response, auth, params}) {
+        const user = await auth.getUser();
+        const { id } = params;
+
+        // Will return us the project model if it exists
+        const project = await Project.find(id);
+        //Ensure the user that is auth'd is the owner of the project.
+        AuthService.verifyPermission(project, user);
+
+        await project.delete();
+        // return response.status(403);
         return project;
     }
 }
