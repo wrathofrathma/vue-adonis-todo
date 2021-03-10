@@ -1,9 +1,8 @@
 <template>
-  <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
+  <Nav/>
+  <div class="content">
+    <router-view />
   </div>
-  <router-view/>
 </template>
 <script>
 //CSS/Theme stuff for primevue. 
@@ -11,8 +10,12 @@ import "primevue/resources/themes/vela-blue/theme.css"
 import "primevue/resources/primevue.min.css"
 import "primeicons/primeicons.css"
 import "primeflex/primeflex.css"
+import Nav from "@/components/Nav.vue"
 
 export default {
+  components: {
+    Nav
+  }
   
 }
 </script>
@@ -23,6 +26,7 @@ body {
   color: var(--text-color);
 }
 
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -30,15 +34,4 @@ body {
   text-align: center;
 }
 
-#nav {
-  padding: 30px;
-}
-
-#nav a {
-  font-weight: bold;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
 </style>
