@@ -6,11 +6,22 @@
             <div class="p-fluid p-text-left">
                 <div class="p-field">
                     <label for="email">Email</label>
-                    <InputText placeholder="Email" id="email" @update:model-value="setLoginEmail" />
+                    <InputText 
+                    placeholder="Email" 
+                    id="email" 
+                    @update:model-value="setLoginEmail"
+                    @keyup.enter="login"
+                     />
                 </div>
                 <div class="p-field">
                     <label for="password">Password</label>
-                    <InputText placeholder="Password" type="password" id="password" @update:model-value="setLoginPassword" />
+                    <InputText 
+                    placeholder="Password" 
+                    type="password" 
+                    id="password" 
+                    @update:model-value="setLoginPassword" 
+                    @keyup.enter="login"
+                    />
                 </div>
             </div>
             <Button class="p-mr-2" @click="login">
