@@ -9,10 +9,22 @@
 import ProjectPanel from "../components/Projects.vue"
 import TasksPanel from "../components/Tasks.vue"
 
+import { mapGetters } from 'vuex'
+
 export default {
     components: {
         ProjectPanel,
         TasksPanel
+    },
+    computed: {
+        ...mapGetters('authentication', [
+            'isLoggedIn'
+        ])
+    },
+    mounted() {
+        if(!this.isLoggedIn) {
+            this.$router.push('/login')
+        }
     }
 }
 </script>
