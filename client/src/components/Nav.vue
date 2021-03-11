@@ -5,8 +5,8 @@
                 <h3 class="p-mr-4">
                     PrimeVue TODO
                 </h3>
-                <Button>
-                    <i class="material-icons">playlist_add_check</i>
+                <Button @click="on_projects" v-if="isLoggedIn">
+                    <i class="material-icons p-mr-1">playlist_add_check</i>
                     Projects
                 </Button>
             </div>
@@ -14,16 +14,16 @@
 
         <template #right>
             <div class="p-d-flex">
-                <Button>
-                    <i class="material-icons">account_box</i>
+                <Button @click="on_register" v-if="!isLoggedIn">
+                    <i class="material-icons p-mr-1">account_box</i>
                     Register
                 </Button>
-                <Button>
-                    <i class="material-icons">fingerprint</i>
+                <Button @click="on_login" v-if="!isLoggedIn">
+                    <i class="material-icons p-mr-1">fingerprint</i>
                     Login
                 </Button>
-                <Button>
-                    <i class="material-icons">exit_to_app</i>
+                <Button @click="logout" v-if="isLoggedIn">
+                    <i class="material-icons p-mr-1">exit_to_app</i>
                     Logout
                 </Button>
             </div>
@@ -32,6 +32,7 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex'
 import Toolbar from "primevue/toolbar"
 import Button from "primevue/button"
 export default {
@@ -44,8 +45,24 @@ export default {
         return {
         }
     },
+    computed: {
+        ...mapGetters('authentication', [
+            'isLoggedIn'
+        ]),
+    },
     methods: {
-
+        ...mapActions('authentication', [
+            'logout'
+        ]),
+        on_projects() {
+            this.$router.push("/")
+        },
+        on_register() {
+            this.$router.push("/register")
+        },
+        on_login() {
+            console.log("Logged in")
+        },
     }
     
 }

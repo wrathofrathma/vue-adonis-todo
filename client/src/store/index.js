@@ -1,17 +1,20 @@
-import createPersistedState from 'vuex-persistedstate'
+// import createPersistedState from 'vuex-persistedstate'
 import { createStore } from 'vuex'
+import authentication from "./authentication"
 
 export default createStore({
   strict: true,
   state: {
+    baseUrl: '/api'
   },
   mutations: {
   },
   actions: {
   },
   modules: {
-  },
-  plugins: [
-    createPersistedState()
-  ]
+    authentication
+  }
+  // plugins: [
+  //   createPersistedState()
+  // ]
 })
