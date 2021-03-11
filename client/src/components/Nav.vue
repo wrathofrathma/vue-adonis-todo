@@ -61,7 +61,7 @@ export default {
             this.$router.push("/register")
         },
         on_login() {
-            console.log("Logged in")
+            this.$router.push("/login")
         },
     }
     

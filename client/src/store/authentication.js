@@ -3,10 +3,13 @@ import router from '../router';
 export default {
     namespaced: true,
     state: {
-        registerEmail: 'email',
-        registerPassword: 'pass',
+        registerEmail: '',
+        registerPassword: '',
         registerError: null,
-        token: null
+        token: null,
+        loginEmail: '',
+        loginPassword: '',
+        loginError: null
     },
     mutations: {
         setRegisterEmail(state, email) {
@@ -20,6 +23,15 @@ export default {
         },
         setRegisterError(state, error) {
             state.registerError = error;
+        },
+        setLoginEmail(state, email) {
+            state.loginEmail = email;
+        },
+        setLoginPassword(state, password) {
+            state.loginPassword = password;
+        },
+        setLoginError(state, error) {
+            state.loginError = error;
         }
     },
     getters: {
@@ -43,6 +55,19 @@ export default {
         },
         logout({commit}) {
             commit('setToken', null);
+            router.push("/login")
+        },
+        login({state, commit}) {
+            commit('setLoginError', null)
+            return HTTP().post('/api/auth/login', {
+                email: state.loginEmail, 
+                password: state.loginPassword
+            }).then(({data}) => {
+                commit('setToken', data.token)
+                router.push('/')
+            }).catch(() => {
+                commit('setLoginError', "An error occured while logging in.")
+            })
         }
     }
 }
