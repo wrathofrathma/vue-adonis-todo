@@ -6,8 +6,25 @@
             </h3>
         </template>
         <div class="p-grid">
-            <div class="p-col-12" v-for="project in projects" :key="project.id">
-                {{project.title}}
+            <div class="project p-col-12" v-for="project in projects" :key="project.id">
+                <EditableLabel :project="project"></EditableLabel>
+                <!-- <div class="p-grid p-jc-between p-text-left" > -->
+                    <!-- <div class="p-col-10">
+                        {{project.title}}
+                    </div> -->
+                    <!-- <div class="p-col"> -->
+                        <!-- <span class="p-col">
+                            <Button class="p-button-text p-button-rounded p-p-1" @click="iclicked">
+                                <i class="material-icons">edit</i>
+                            </Button>
+                        </span>
+                        <span class="p-col">
+                            <Button class="p-button-text p-button-rounded p-p-1" @click="iclicked">
+                                <i class="material-icons">edit</i>
+                            </Button>
+                        </span> -->
+                    <!-- </div> -->
+                <!-- </div> -->
             </div>
         </div>
         <div class="p-d-flex">
@@ -19,7 +36,7 @@
                 :value="newProjectName"
             />
             <Button class="p-col p-ml-2" @click="createProject">
-                <i class="material-icons">add_circle</i>
+                <i class="material-icons" @click="iclicked">add_circle</i>
                 Create
             </Button>
         </div>
@@ -31,12 +48,14 @@
 import Panel from "primevue/panel";
 import InputText from "primevue/inputtext";
 import Button from "primevue/button";
+import EditableLabel from "./EditableLabel"
 import { mapState, mapMutations, mapActions, mapGetters } from 'vuex'
 export default {
     components: {
         Panel,
         InputText,
-        Button
+        Button,
+        EditableLabel
     },
     computed: {
         ...mapState('projects', [
@@ -54,7 +73,10 @@ export default {
         ...mapActions('projects', [
             'createProject',
             'getProjects'
-        ])
+        ]),
+        iclicked(){ 
+            console.log("Test")
+        }
     },
     mounted() {
         if(this.isLoggedIn) {
@@ -63,3 +85,9 @@ export default {
     }
 }
 </script>
+
+<style>
+.project {
+    font-size: 18px;
+}
+</style>
