@@ -7,6 +7,7 @@ There are a few key differences between this app and the tutorial video this is 
 - Adonis.js structure has changed since the video release
 - Vue.js has been updated to Vue 3.
 - Due to the update of Vue, we're also using a different component library. We're using Primevue instead of Vuetify. 
+- PrimeIcons doesn't quite measure up to the variety offered by Vuetify, material icons, etc. So we are mostly using material icons. 
 
 # Technical Differences
 - Vuetify text fields have an @input event, Primevue InputText does not. To access the data changing we had to bind to @update:model-value
