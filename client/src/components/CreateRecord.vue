@@ -6,8 +6,13 @@
             :value="value"
             @keyup.enter="$emit('create')"
             class="p-col-10" 
+            :disabled="disabled"
         />
-        <Button class="p-col p-ml-2" @click="$emit('create')">
+        <Button 
+        class="p-col p-ml-2" 
+        @click="$emit('create')"
+        :disabled="disabled"
+        >
             <i class="material-icons" @click="iclicked">add_circle</i>
             Create
         </Button>
@@ -32,6 +37,10 @@ export default {
         value: {
             type: String,
             required: false
+        },
+        disabled: {
+            type: Boolean,
+            default: false
         }
     }
 }

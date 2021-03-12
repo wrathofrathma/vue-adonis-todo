@@ -16,6 +16,8 @@
                 @input="updateRecordTitle({
                     record: project,
                     title: $event})"
+                @click="selectProject(project)"
+                :active_id="activeProjectID"
                 />
             </div>
         </div>
@@ -43,7 +45,8 @@ export default {
     computed: {
         ...mapState('projects', [
             'newProjectName',
-            'projects'
+            'projects',
+            'activeProjectID'
         ]),
         ...mapGetters('authentication', [
             'isLoggedIn'
@@ -58,8 +61,9 @@ export default {
             'createProject',
             'getProjects',
             'deleteProject',
-            'saveProjectName'
-        ]),
+            'saveProjectName',
+            'selectProject'
+        ])
     },
     mounted() {
         if(this.isLoggedIn) {

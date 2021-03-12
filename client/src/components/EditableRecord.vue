@@ -27,9 +27,9 @@
         </div>
     </div>
     <!-- Not Editing label -->
-    <div v-else>
-        <div class="p-grid p-ai-center">
-            <div class="p-col-9 p-text-left">
+    <div v-else class="record">
+        <div class="p-grid p-ai-center" :class="{active: record.id === active_id}">
+            <div class="p-col-9 p-text-left" @click="$emit('click')">
                 {{title}}
             </div>
             <div class="p-col-1">
@@ -63,11 +63,12 @@ export default {
         Button,
         InputText
     },
-    emits: ['save', 'delete', 'input'],
+    emits: ['save', 'delete', 'input', 'click'],
     props: {
         title: String,
         isEditMode: Boolean,
-        record: Object
+        record: Object,
+        active_id: Number
     },
     methods: {
         ...mapMutations('projects', [
@@ -76,3 +77,13 @@ export default {
     }
 }
 </script>
+
+<style>
+.record:hover {
+    background: var(--surface-c);
+}
+
+.active {
+    background: var(--surface-d);
+}
+</style>
