@@ -7,55 +7,38 @@
         </template>
         <div class="p-grid">
             <div class="project p-col-12" v-for="project in projects" :key="project.id">
-                <EditableLabel :project="project"></EditableLabel>
-                <!-- <div class="p-grid p-jc-between p-text-left" > -->
-                    <!-- <div class="p-col-10">
-                        {{project.title}}
-                    </div> -->
-                    <!-- <div class="p-col"> -->
-                        <!-- <span class="p-col">
-                            <Button class="p-button-text p-button-rounded p-p-1" @click="iclicked">
-                                <i class="material-icons">edit</i>
-                            </Button>
-                        </span>
-                        <span class="p-col">
-                            <Button class="p-button-text p-button-rounded p-p-1" @click="iclicked">
-                                <i class="material-icons">edit</i>
-                            </Button>
-                        </span> -->
-                    <!-- </div> -->
-                <!-- </div> -->
+                <EditableRecord
+                :title="project.title" 
+                :isEditMode="project.isEditMode"
+                :record="project"
+                @save="saveProjectName(project)"
+                @delete="deleteProject(project)"
+                @input="updateRecordTitle({
+                    record: project,
+                    title: $event})"
+                />
             </div>
         </div>
-        <div class="p-d-flex">
-            <input-text 
-                placeholder="My project name..." 
-                class="p-col-10" 
-                @update:model-value="setNewProjectName"
-                @keyup.enter="createProject"
-                :value="newProjectName"
-            />
-            <Button class="p-col p-ml-2" @click="createProject">
-                <i class="material-icons" @click="iclicked">add_circle</i>
-                Create
-            </Button>
-        </div>
+        <CreateRecord 
+        placeholder="My project name..."
+        @create="createProject"
+        :value="newProjectName"
+        @input="setNewProjectName"
+        ></CreateRecord>
     </Panel>
 </template>
 
 <script>
-//This is kinda cheating since the tutorial created its own panel...but in my defense there is no default Panel components in vuetify lol.
 import Panel from "primevue/panel";
-import InputText from "primevue/inputtext";
-import Button from "primevue/button";
-import EditableLabel from "./EditableLabel"
+import EditableRecord from "./EditableRecord"
+import CreateRecord from './CreateRecord';
+
 import { mapState, mapMutations, mapActions, mapGetters } from 'vuex'
 export default {
     components: {
         Panel,
-        InputText,
-        Button,
-        EditableLabel
+        EditableRecord,
+        CreateRecord
     },
     computed: {
         ...mapState('projects', [
@@ -68,15 +51,15 @@ export default {
     },
     methods: {
         ...mapMutations('projects', [
-            'setNewProjectName'
+            'setNewProjectName',
+            'updateRecordTitle'
         ]),
         ...mapActions('projects', [
             'createProject',
-            'getProjects'
+            'getProjects',
+            'deleteProject',
+            'saveProjectName'
         ]),
-        iclicked(){ 
-            console.log("Test")
-        }
     },
     mounted() {
         if(this.isLoggedIn) {

@@ -16,24 +16,28 @@ export default {
         setProjects(state, projects) {
             state.projects = projects;
         },
-        setEditable(state, project) {
-            project.editMode = true;
+        setEditable(state, record) {
+            record.isEditMode = true;
         },
-        unsetEditable(state, project) {
-            project.editMode = false;
+        unsetEditable(state, record) {
+            record.isEditMode = false;
         },
-        updateLabel(state,  {title, project}) {
-            project.title = title
+        updateRecordTitle(state,  {record, title}) {
+            record.title = title
+        },
+        removeProject(state, project) {
+            state.projects.splice(state.projects.indexOf(project),1);
         }
     },
     actions: {
-        createProject({state, dispatch}) {
+        createProject({state, dispatch, commit}) {
             if(state.newProjectName) {
                 return HTTP().post("/api/projects", {
                     title: state.newProjectName
                 })
                 .then(() => {
                     dispatch('getProjects')
+                    commit('setNewProjectName', '')
                 })
                 .catch((error) => {
                     console.error("An error occurred while creating a new project.")
@@ -57,11 +61,11 @@ export default {
                 console.error("An error occurred while saving the project name.")
             })
         },
-        deleteProject({dispatch}, project) { 
+        deleteProject({commit}, project) { 
             return HTTP()
             .delete(`/api/projects/${project.id}`)
             .then(() => {
-                dispatch('getProjects')
+                commit('removeProject', project)  
             })
             .catch(() => {
                 console.error("An error occurred while deleting the project")
