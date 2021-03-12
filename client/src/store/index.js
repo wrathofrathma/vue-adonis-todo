@@ -2,6 +2,8 @@
 import { createStore } from 'vuex'
 import authentication from "./authentication"
 import projects from "./projects"
+import tasks from "./tasks"
+
 export default createStore({
   strict: true,
   state: {
@@ -13,7 +15,8 @@ export default createStore({
   },
   modules: {
     authentication,
-    projects
+    projects,
+    tasks
   }
   // plugins: [
   //   createPersistedState()
