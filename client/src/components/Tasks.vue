@@ -6,6 +6,7 @@
             </h3>
         </template>
         <EditableRecord 
+        class="task"
         v-for="task in tasks" 
         :key="task.id"
         :title="task.description"
@@ -71,3 +72,9 @@ export default {
     }
 }
 </script>
+
+<style scoped>
+.task {
+    font-size: 18px;
+}
+</style>

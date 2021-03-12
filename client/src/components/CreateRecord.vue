@@ -1,15 +1,16 @@
 <template>
-    <div class="p-d-flex">
+    <div class="p-grid">
         <InputText
             :placeholder="placeholder" 
             @update:model-value="$emit('input', $event)"
             :value="value"
             @keyup.enter="$emit('create')"
-            class="p-col-10" 
+            class="p-inputtext-lg p-col" 
             :disabled="disabled"
         />
         <Button 
-        class="p-col p-ml-2" 
+        class="p-col-fixed p-ml-2" 
+        style="width: 90px;"
         @click="$emit('create')"
         :disabled="disabled"
         >

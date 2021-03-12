@@ -1,10 +1,10 @@
 <template>
-    <div class="p-grid p-ai-center record " :class="classObject">
+    <div class="p-grid p-ai-center record p-p-1 " :class="classObject">
         <!-- Slot stuff, in this case our checkbox -->
         <slot>
         </slot>
         <!-- Editable label section -->
-        <div class="p-col-9">
+        <div class="p-col">
             <div v-if="!isEditMode">
                 <div class="p-text-left" @click="$emit('click')">
                     {{title}}
@@ -19,31 +19,31 @@
                 />
             </div>
         </div>
-        <!-- Buttons -->
-        <div v-if="!isEditMode" class="p-col-1">
-            <Button 
-            @click="setEditable(record)"
-            class="p-button-rounded p-button-text"
-            >
-                <i class="material-icons">edit</i>
-            </Button>
-        </div>
-        <div v-else class="p-col-1">
-            <Button 
-            class=""
-            @click="$emit('save')"
-            >
-                <i class="material-icons">check</i>
-            </Button>
-        </div>
-        <div class="p-col-1">
-            <Button 
-            class=""
-            @click="$emit('delete')"
-            >
-                <i class="material-icons">close</i>
-            </Button>
-        </div>
+        <!-- Edit button -->
+        <Button 
+        v-if="!isEditMode"
+        @click="setEditable(record)"
+        :class="buttonClasses"
+        >
+            <i class="material-icons">edit</i>
+        </Button>
+
+        <!-- Save button -->
+        <Button 
+        v-else
+        :class="buttonClasses"
+        @click="$emit('save')"
+        >
+            <i class="material-icons">check</i>
+        </Button>
+
+        <!-- Delete button -->
+        <Button 
+        :class="buttonClasses"
+        @click="$emit('delete')"
+        >
+            <i class="material-icons">close</i>
+        </Button>
     </div>
 </template>
 
@@ -76,11 +76,19 @@ export default {
                 active: !this.isEditMode && this.record.id===this.active_id
             }
         },
+        buttonClasses() {
+            return {
+                'p-button-rounded': !this.isEditMode,
+                'p-button-text': !this.isEditMode,
+                'p-col-fixed': true,
+                'p-jc-center': true
+            }
+        }
     }
 }
 </script>
 
-<style>
+<style scoped>
 .record:hover {
     background: var(--surface-c);
 }
@@ -88,4 +96,9 @@ export default {
 .active {
     background: var(--surface-d);
 }
+
+.p-button {
+    width: 60px;
+}
+
 </style>
