@@ -75,6 +75,6 @@ export default {
 
 <style>
 .project {
-    font-size: 18px;
+    font-size: 24px;
 }
 </style>

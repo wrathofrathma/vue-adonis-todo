@@ -16,7 +16,14 @@
         @input="updateTaskDescription({
             task: task,
             description: $event})"
-        />
+        >
+        <Checkbox
+        @update:model-value="toggleTaskCompleted(task)"
+        :model-value="task.completed"
+        :binary="true"
+        ></Checkbox>
+
+        </EditableRecord>
         <CreateRecord
         placeholder="New task description..."
         @create="createTask"
@@ -31,16 +38,18 @@
 import Panel from "primevue/panel";
 import EditableRecord from "./EditableRecord"
 import CreateRecord from './CreateRecord';
+import Checkbox from "primevue/checkbox"
 
 import { mapState, mapMutations, mapActions, mapGetters } from 'vuex'
 export default {
     components: {
         Panel,
         EditableRecord,
-        CreateRecord
+        CreateRecord,
+        Checkbox
     },
     computed: {
-        ...mapState('projects', [
+        ...mapState('tasks', [
             'tasks',
             'newTaskDescription'
         ]),
@@ -49,15 +58,16 @@ export default {
         ])
     },
     methods: {
-        ...mapMutations('projects', [
+        ...mapMutations('tasks', [
             'setNewTaskDescription',
             'updateTaskDescription'
         ]),
-        ...mapActions('projects', [
+        ...mapActions('tasks', [
             'createTask',
             'deleteTask',
-            'updateTask'
-        ])
+            'updateTask',
+            'toggleTaskCompleted'
+        ]),
     }
 }
 </script>
