@@ -67,8 +67,13 @@ export default {
             'createTask',
             'deleteTask',
             'updateTask',
-            'toggleTaskCompleted'
+            'toggleTaskCompleted',
+            'fetchTasks'
         ]),
+    },
+    mounted() {
+        //Let's make sure to refresh the tasks if we are re-mounting. In-case of persisted state stuff or logging out and back into a new user, our task panel isn't hidden like the tutorial.
+        this.fetchTasks()
     }
 }
 </script>

@@ -1,4 +1,4 @@
-// import createPersistedState from 'vuex-persistedstate'
+import createPersistedState from 'vuex-persistedstate'
 import { createStore } from 'vuex'
 import authentication from "./authentication"
 import projects from "./projects"
@@ -17,8 +17,8 @@ export default createStore({
     authentication,
     projects,
     tasks
-  }
-  // plugins: [
-  //   createPersistedState()
-  // ]
+  },
+  plugins: [
+    createPersistedState()
+  ]
 })

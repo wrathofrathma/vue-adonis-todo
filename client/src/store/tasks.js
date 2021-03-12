@@ -54,6 +54,7 @@ export default {
                 commit('setTasks', data)
             })
             .catch(() => {
+                commit('setTasks', [])
                 console.log("An error occurred while fetching the project tasks.")
             })
         },

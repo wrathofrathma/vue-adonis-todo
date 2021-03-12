@@ -9,6 +9,10 @@
                     <i class="material-icons p-mr-1">playlist_add_check</i>
                     Projects
                 </Button>
+                <Button @click="open_video">
+                    <i class="material-icons p-mr-1">ondemand_video</i>
+                    Tutorial this is based on
+                </Button>
             </div>
         </template>
 
@@ -63,6 +67,9 @@ export default {
         on_login() {
             this.$router.push("/login")
         },
+        open_video() {
+            window.open("https://www.youtube.com/watch?v=dfEZlcPvez8")
+        }
     }
     
 }
